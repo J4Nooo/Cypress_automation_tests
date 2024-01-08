@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz Logowania</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #68e76c;
+            color: #0a5b1e;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Logowanie</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="button" onclick="validateLogin()">Zaloguj się</button>
+            <div class="error-message" style="color: red; margin-top: 10px;"></div>
+        </form>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var errorMessageContainer = document.querySelector(".error-message");
+
+            // Sprawdzenie warunków
+            if(username.length > 20) {
+                errorMessageContainer.textContent = "Nazwa użytkownika nie może być dłuższa niż 20 znaków";
+                return;
+            }
+            if (password.length > 20) {
+                errorMessageContainer.textContent = "Hasło nie może być dłuższe niż 20 znaków.";
+                return;
+            }
+            if (password.length < 8) {
+                errorMessageContainer.textContent = "Hasło nie może być krótsze niż 8 znaków";
+                return;
+            }
+
+            if (!/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                errorMessageContainer.textContent = "Hasło musi zawierać małe litery, duże litery, cyfry oraz znaki specjalne.";
+                return;
+            }
+
+            // Wyczyszczenie komunikatu błędu po poprawnym logowaniu
+            errorMessageContainer.textContent = "";
+
+            window.location.href = "http://127.0.0.1:5500/strona_glowna.html";
+        }
+    </script>
+</body>
+</html>
